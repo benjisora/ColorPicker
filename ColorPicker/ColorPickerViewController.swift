@@ -45,7 +45,6 @@ class ColorPickerViewController: UIViewController {
         }
         delegate.colorIsReturning(controller: self, color: colorvalue);
         
-        
     }
     
 }
