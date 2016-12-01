@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ColorPickerDelegate{
-    func colorIsReturning(controller:ColorPickerViewController,color:UIColor);
-}
-
 class ColorPickerViewController: UIViewController {
 
-    var delegate:ColorPickerDelegate? = nil;
+    //var delegate:ColorPickerDelegate? = nil;
     var colorvalue: UIColor = UIColor.black;
+    
+    
+    // MARK: - ClosureFunction
+    var completionHandler: ((UIColor) -> ())?
     
     struct Color {
         static let redColor = UIColor(red: 129/255.0, green: 22/255.0, blue:62/255.0, alpha:1.0);
@@ -25,26 +25,17 @@ class ColorPickerViewController: UIViewController {
     
     @IBAction func onOrangeClick(_ sender: AnyObject) {
         colorvalue = Color.orangeColor;
-        sendDataBack();
+        completionHandler?(colorvalue)
     }
     
     @IBAction func onRedClick(_ sender: UIButton) {
         colorvalue = Color.redColor;
-        sendDataBack();
+        completionHandler?(colorvalue)
     }
     
     @IBAction func OnGreenClick(_ sender: UIButton) {
         colorvalue = Color.greenColor;
-        sendDataBack();
-    }
-    
-    func sendDataBack(){
-        guard let delegate = self.delegate else {
-            print("Delegate for ColorPickerViewController not Set");
-            return;
-        }
-        delegate.colorIsReturning(controller: self, color: colorvalue);
-        
+        completionHandler?(colorvalue)
     }
     
 }
